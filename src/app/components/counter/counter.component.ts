@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class CounterComponent implements OnInit {
 
   token:string 
-  count
+  count:number
 
   constructor(private loginService:LoginService, private router:Router) { }
 

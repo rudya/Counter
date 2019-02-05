@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
 
   		(res)=>{
   			if (res.status === 200){
-	  			let token = res.json().token
 	  			this.router.navigate(['/counter'])
   			}
   		},

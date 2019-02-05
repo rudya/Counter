@@ -10,10 +10,6 @@ app.listen(port)
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.all("/*", function(req, res, next){
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-  res.header("Access-Control-Allow-Credentials", true);
   next();
 });
 console.log('Server started, listening on port', port)
@@ -48,11 +44,12 @@ var counter = {
 
 }
 
-app.post('/login', function (req, res) {
+app.post('/api/login', function (req, res) {
 	if(req.body.username === user.username && req.body.password === user.password){
+
 		var token = jwt.sign({admin:user.admin, id:user.id}, '!marooN5')
 		
-		//res.cookie('test', 'test', { httpOnly:true, expires:0 })
+		res.cookie('token', token, { httpOnly:true, expires:0, secure:false })
 		res.status(200).send({token:token})
 
 	}
@@ -63,26 +60,31 @@ app.post('/login', function (req, res) {
 
 const authorize = function(req,res,next){
 
-	let token = req.body.token
+	let token = req.cookies.token
 
 	if (token){
-
 		jwt.verify(token , '!marooN5', function(err, decoded){
-			if (err) {res.status(403).send()}
-			console.log(decoded)
-			next();
-		})
 
+			if (err) {
+				res.status(401).send();
+			}
+			else if (decoded.admin === false) {
+				res.status(403).send()
+			}
+			else{
+				console.log('authorized', decoded)
+				next();
+			}
+		})
 	}
 	else{
-		res.status(403).send()
+		res.status(401).send()
 	}
 
 }
 
-app.post('/increment', authorize, function(req,res){
+app.post('/api/increment', authorize, function(req,res){
 	let values = counter.increment();
-	console.log(values)
 	res.status(200).send(values)
 })
 
