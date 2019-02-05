@@ -28,8 +28,11 @@ export class LoginComponent implements OnInit {
   submit(){
   	this.loginService.submit(this.loginForm.value.username,this.loginForm.value.password).subscribe(
 
-  		(status)=>{
-  			this.router.navigate(['/counter'])
+  		(res)=>{
+  			if (res.status === 200){
+	  			let token = res.json().token
+	  			this.router.navigate(['/counter'])
+  			}
   		},
 
   		(error) => {
@@ -38,4 +41,8 @@ export class LoginComponent implements OnInit {
   	)
   }
 
+
+
 }
+
+
