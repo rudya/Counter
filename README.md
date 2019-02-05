@@ -1,27 +1,38 @@
 # Counter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.4.
+requires Node
 
-## Development server
+1. start up express server
+   - open terminal
+   - navigate to `/src/server`
+   - `node server.js`
+   - server is listening on port 3000
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+2. serve up counter application
+   - open another terminal
+   - navigate to the repo root folder
+   - for this local development environment, a proxy configuration is used to point to the express server
+   	 - calls to /api/* -> localhost:3000
+   - simply run `npm start`
+   - application is served on port 4200
 
-## Code scaffolding
+3. login
+   - username : tbrady12
+   - password : thegoat12
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## APIs
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* login
+  - authenticates user
+  - create jwt for authorization
+    - the following api calls are authenticated using this token
+    - token stored as cookie
+    - returned to login page if authentication fails
+* getCount
+  - gets initial count value
+    - count value exists in the backend
+    - count resets to zero when the server is reset
+* getIncrement
+  - formula creates new next value based on count value
+* setIncrement
+  - count value is updated as the next value

@@ -24,11 +24,26 @@ export class LoginService {
   	}))
   }
 
-  increment(){
-  	var url = this.ip + '/increment'
+  getCount(){
+  	var url = this.ip + '/getCount'
 
-  	return this.http.post(url,{}).pipe(map((res) => {
+  	return this.http.get(url).pipe(map((res) => {
   		return res
   	}))
+  }
+
+  getIncrement(){
+  	var url = this.ip + '/increment'
+  	return this.http.get(url).pipe(map((res) => {
+  		return res.json()
+  	}))
+  }
+
+  setIncrement(){
+  	var url = this.ip + '/increment'
+  	return this.http.post(url,{}).pipe(map((res) => {
+  		return res.json()
+  	}))
+
   }
 }

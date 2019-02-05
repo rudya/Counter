@@ -12,19 +12,24 @@ export class CounterComponent implements OnInit {
 
   token:string 
   count:number
+  next:number
+  showPopup:boolean
 
-  constructor(private loginService:LoginService, private router:Router) { }
+  constructor(private loginService:LoginService, private router:Router) { 
 
-  ngOnInit() {
-  	this.increment();
   }
 
-  increment(){
-  	this.loginService.increment().subscribe(  		
+  ngOnInit(){
+  	this.getCount();
+  }
+
+  getCount(){
+  	this.loginService.getCount().subscribe( 
 
   		(res) => {
   			if (res.status === 200){
-	  			//show values
+	  			//update count
+	  			this.count = res.json().count
   			}
   		},
 
@@ -32,6 +37,36 @@ export class CounterComponent implements OnInit {
   			this.router.navigate(['/login'])
 			}
   	)
+  }
+
+  increment(type){
+
+  	if(type === "get"){
+  		this.loginService.getIncrement().subscribe(
+  			(res) => {
+  				//set count and next value
+  				//open pop up
+  				this.count = res.count
+  				this.next = res.next
+  				this.showPopup = true
+  			}
+  		)
+  	}
+  	else{
+  		this.loginService.setIncrement().subscribe(
+  			(res) => {
+  				//close popup
+  				//update count
+  				this.showPopup = false
+  				this.count = res.count
+  			}
+  		)
+  	}
+  }
+
+  cancel(){
+  	//close popup
+  	this.showPopup = false
   }
 
 }

@@ -1,3 +1,9 @@
-<p>
-  counter works!
-</p>
+<div>
+	<label>
+		COUNT: {{count}}
+	</label>
+	<button (click)="increment('get')">INCREMENT</button>
+</div>
+<div *ngIf="showPopup">
+	popup {{count}} {{next}} <button (click)="increment('post')">Confirm</button> <button (click)="cancel()">Cancel</button>
+</div>
