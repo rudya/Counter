@@ -26,7 +26,7 @@ requires Node
   - authenticates user
   - create jwt for authorization
     - the following api calls are authenticated using this token
-    - token stored as cookie
+    - token stored as cookie, expires when browsing session ends
     - returned to login page if authentication fails
 * getCount
   - gets initial count value

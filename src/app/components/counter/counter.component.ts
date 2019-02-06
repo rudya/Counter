@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 
@@ -6,12 +6,17 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-counter',
   templateUrl: './counter.component.html',
-  styleUrls: ['./counter.component.css']
+  styleUrls: ['./counter.component.css'],
+
 })
 export class CounterComponent implements OnInit {
+	@HostListener('window:resize', ['$event'])
+	sizeChange(event) {
+  	setCounterPosition();
+	}
 
   token:string 
-  count:number
+  count:number 
   next:number
   showPopup:boolean
 
@@ -21,6 +26,7 @@ export class CounterComponent implements OnInit {
 
   ngOnInit(){
   	this.getCount();
+  	setCounterPosition();
   }
 
   getCount(){
@@ -69,5 +75,14 @@ export class CounterComponent implements OnInit {
   	this.showPopup = false
   }
 
+}
+
+function setCounterPosition(){
+	  var counter = document.getElementById('counter')
+	  var count = document.getElementById('count')
+  	var countCenterOffset =(count.offsetWidth/2)
+  	var w = document.body.clientWidth/2
+  	var offset = w - countCenterOffset
+  	counter.style.left = offset + 'px'
 }
 

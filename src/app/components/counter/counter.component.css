@@ -1,0 +1,28 @@
+:host{
+	height:100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+#counter{
+	position: relative;
+}
+#button{
+}
+
+#popup{
+	width: 25%;
+	padding: 2em;
+	border: solid;
+	border-width: 1px;
+	border-radius: 0.2em;
+	position: absolute;
+	background-color: lightblue;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	left:0;
+	right:0;
+	margin: auto;
+	flex-direction: column;
+}
