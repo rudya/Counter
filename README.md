@@ -2,19 +2,25 @@
 
 requires Node
 
-1. start up express server
+1. Setup environment
+   - clone repo
    - open terminal
+   - navigate to repo folder
+   - `npm install` to set up environment
+
+2. start up express server
    - navigate to `/src/server`
-   - `node server.js`
+   - `node server.js` to start up server
    - server is listening on port 3000
 
 2. serve up counter application
    - open another terminal
-   - navigate to the repo root folder
+   - navigate to the repo folder
    - for this local development environment, a proxy configuration is used to point to the express server
    	 - calls to /api/* -> localhost:3000
    - simply run `npm start`
    - application is served on port 4200
+   - open localhost:4200 in browser
 
 3. login
    - username : tbrady12
